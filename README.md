@@ -1,0 +1,1 @@
+### Convert Exchange Symbols to Their Company Channels
