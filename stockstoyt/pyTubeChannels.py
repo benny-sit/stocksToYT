@@ -1,12 +1,13 @@
 from pytube import Search
 import yfinance as yf
 yf.set_tz_cache_location("yf/cache/")
-from constants import STOCKS
+from constants import STOCKS, CHANNEL_ID
 import re
 import requests
 from requests_ratelimiter import LimiterMixin, MemoryQueueBucket
 from requests_cache import CacheMixin, SQLiteCache
 from pyrate_limiter import Duration, RequestRate, Limiter
+from web_screenshot import screenshot_youtube_channels
 class CachedLimiterSession(CacheMixin, LimiterMixin, requests.Session):
     pass
 
@@ -73,10 +74,12 @@ def get_channel_ids(stocks_names):
 def run():
   info = get_stock_info(ALL_STOCKS)
   stock_short_name = {k: re.sub('[^A-Za-z0-9. ]','',v['shortName']).replace('  ', ' ') for k, v in info.items() if 'shortName' in v}
+  stock_websites = {k: v['website'] for k, v in info.items() if 'website' in v}
 
-  stock_channel_ids = get_channel_ids(stock_short_name)
+  # stock_channel_ids = get_channel_ids(stock_short_name)
+  screenshot_youtube_channels(CHANNEL_ID, stock_short_name)
   
   # stocks_channel_ids = get_youtube_videos_of_stock_companies(stock_short_name)
   
   
-  print("END",stock_channel_ids)
+  # print("END",stock_channel_ids)

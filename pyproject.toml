@@ -11,6 +11,7 @@ pytube = "^15.0.0"
 yfinance = "^0.2.41"
 requests-ratelimiter = "^0.7.0"
 requests-cache = "^1.2.1"
+selenium = "^4.23.0"
 
 
 [build-system]
